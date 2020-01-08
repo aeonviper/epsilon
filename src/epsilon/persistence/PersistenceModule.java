@@ -11,6 +11,7 @@ import org.aopalliance.intercept.MethodInterceptor;
 import com.google.inject.AbstractModule;
 import com.zaxxer.hikari.HikariDataSource;
 
+import common.Core;
 import omega.annotation.Transactional;
 import omega.persistence.PersistenceService;
 import omega.persistence.TransactionInterceptor;
@@ -22,7 +23,9 @@ public class PersistenceModule extends AbstractModule {
 
 	@Override
 	protected final void configure() {
+
 		HikariDataSource mainDataSource = new HikariDataSource();
+
 		try {
 			URL url = Thread.currentThread().getContextClassLoader().getResource("application.configuration");
 			if (url != null) {
@@ -33,6 +36,8 @@ public class PersistenceModule extends AbstractModule {
 				mainDataSource.setJdbcUrl(propertyRepository.getProperty("main.database.url"));
 				mainDataSource.setUsername(propertyRepository.getProperty("main.database.username"));
 				mainDataSource.setPassword(propertyRepository.getProperty("main.database.password"));
+
+				Core.setPropertyRepository(propertyRepository);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -41,6 +46,7 @@ public class PersistenceModule extends AbstractModule {
 		bind(PersistenceService.class).toInstance(new PersistenceService(mainDataSource));
 		MethodInterceptor transactionInterceptor = new TransactionInterceptor();
 		requestInjection(transactionInterceptor);
+
 		bindInterceptor(any(), annotatedWith(Transactional.class), transactionInterceptor);
 
 	}
