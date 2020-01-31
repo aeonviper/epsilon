@@ -12,6 +12,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import epsilon.controller.MonitorController;
+import epsilon.persistence.PersistenceModule;
 import orion.core.Constant;
 import orion.navigation.Navigation;
 
@@ -25,7 +26,7 @@ public class ApplicationContextListener implements ServletContextListener {
 
 		Injector injector = Guice.createInjector(new AbstractModule() {
 			protected void configure() {
-				install(new epsilon.persistence.PersistenceModule());
+				install(new PersistenceModule());
 			}
 		});
 
