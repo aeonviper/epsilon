@@ -1,4 +1,3 @@
-
 <%
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("application/json");
