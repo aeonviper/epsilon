@@ -20,7 +20,7 @@ import epsilon.security.Principal;
 import io.fusionauth.jwt.JWTExpiredException;
 import io.fusionauth.jwt.domain.JWT;
 import orion.controller.Notification;
-import orion.core.Utility;
+import epsilon.core.Utility;
 
 public class SessionFilter implements Filter {
 
