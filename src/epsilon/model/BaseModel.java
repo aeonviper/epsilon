@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import epsilon.core.Utility;
+import epsilon.security.Principal;
+
 public class BaseModel {
 
 	protected Long id;
@@ -20,6 +23,18 @@ public class BaseModel {
 	protected String editor;
 
 	protected Map<String, Object> transitMap = new HashMap<>();
+
+	public void createdBy(Principal principal) {
+		setCreated(Utility.now());
+		setCreatorId(principal.getId());
+		setCreator(Utility.gson.toJson(principal));
+	}
+
+	public void editedBy(Principal principal) {
+		setEdited(Utility.now());
+		setEditorId(principal.getId());
+		setEditor(Utility.gson.toJson(principal));
+	}
 
 	public Long getId() {
 		return id;
