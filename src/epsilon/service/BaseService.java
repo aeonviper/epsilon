@@ -45,8 +45,8 @@ public class BaseService extends GenericService {
 		if (entity == null) {
 			return;
 		}
-		if (entity.getDataMap() != null) {
-			entity.setData(Utility.gson.toJson(entity.getDataMap()));
+		if (entity.getMap() != null) {
+			entity.setMapData(Utility.gson.toJson(entity.getMap()));
 		}
 	}
 
@@ -54,8 +54,8 @@ public class BaseService extends GenericService {
 		if (entity == null) {
 			return;
 		}
-		if (Utility.isNotBlank(entity.getData())) {
-			entity.setDataMap(Utility.gson.fromJson(entity.getData(), Utility.typeMapOfStringObject));
+		if (Utility.isNotBlank(entity.getMapData())) {
+			entity.setMap(Utility.gson.fromJson(entity.getMapData(), Utility.typeMapOfStringObject));
 		}
 	}
 

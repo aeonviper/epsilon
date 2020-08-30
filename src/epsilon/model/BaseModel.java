@@ -11,8 +11,8 @@ public class BaseModel {
 
 	protected Long id;
 
-	protected String data;
-	protected Map<String, Object> dataMap = new HashMap<>();
+	protected Map<String, Object> map = new HashMap<>();
+	protected String mapData;
 
 	protected LocalDateTime created;
 	protected Long creatorId;
@@ -44,20 +44,28 @@ public class BaseModel {
 		this.id = id;
 	}
 
-	public String getData() {
-		return data;
+	public Map<String, Object> getMap() {
+		return map;
 	}
 
-	public void setData(String data) {
-		this.data = data;
+	public void setMap(Map<String, Object> map) {
+		this.map = map;
 	}
 
-	public Map<String, Object> getDataMap() {
-		return dataMap;
+	public String getMapData() {
+		return mapData;
 	}
 
-	public void setDataMap(Map<String, Object> dataMap) {
-		this.dataMap = dataMap;
+	public void setMapData(String mapData) {
+		this.mapData = mapData;
+	}
+
+	public Map<String, Object> getTransitMap() {
+		return transitMap;
+	}
+
+	public void setTransitMap(Map<String, Object> transitMap) {
+		this.transitMap = transitMap;
 	}
 
 	public LocalDateTime getCreated() {
@@ -106,14 +114,6 @@ public class BaseModel {
 
 	public void setEditor(String editor) {
 		this.editor = editor;
-	}
-
-	public Map<String, Object> getTransitMap() {
-		return transitMap;
-	}
-
-	public void setTransitMap(Map<String, Object> transitMap) {
-		this.transitMap = transitMap;
 	}
 
 }
