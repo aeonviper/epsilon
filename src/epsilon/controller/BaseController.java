@@ -59,6 +59,8 @@ public class BaseController {
 
 	protected Notification notification = new Notification();
 	protected View viewNotification = new View(View.Type.JSON, HttpServletResponse.SC_BAD_REQUEST, getNotificationMap());
+	protected View viewUnauthorized = new View(View.Type.JSON, HttpServletResponse.SC_UNAUTHORIZED, getNotificationMap());
+	protected View viewEmpty = new View(View.Type.JSON_STRING, HttpServletResponse.SC_OK, "");
 
 	protected RequiredValidator requiredValidator = new RequiredValidator();
 	protected RequiredStringValidator requiredStringValidator = new RequiredStringValidator();
