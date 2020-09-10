@@ -22,11 +22,11 @@ public class MonitorController extends BaseController {
 	public View ping() {
 		List<Tenant> tenantList = tenantService.list();
 		if (!tenantList.isEmpty()) {
-			return new View(Type.JSON, "OK");
+			return new View(Type.TEXT_PLAIN, "OK");
 		}
-		return new View(Type.JSON, "Error");
+		return new View(Type.TEXT_PLAIN, "Error");
 	}
-	
+
 	@Path(value = "/system/monitor/storage")
 	public View storage( //
 			@Parameter("token") String token, //
@@ -79,6 +79,5 @@ public class MonitorController extends BaseController {
 	protected String hex(String text) {
 		return String.format("%x", new BigInteger(1, text.getBytes()));
 	}
-
 
 }
