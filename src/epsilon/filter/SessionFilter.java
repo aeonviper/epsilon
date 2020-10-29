@@ -90,7 +90,7 @@ public class SessionFilter implements Filter {
 			map.put("fieldErrorList", notification.getFieldErrorList());
 
 			HttpServletResponse response = (HttpServletResponse) servletResponse;
-			response.setStatus(Constant.unauthorizedErrorCode);
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			PrintWriter pw = response.getWriter();
 			pw.println(Utility.gson.toJson(map));
 			pw.flush();

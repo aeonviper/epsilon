@@ -21,12 +21,6 @@ public class Constant extends orion.core.Constant {
 	public static final File assetPath;
 	public static final File assetFilePath;
 
-	public static int notFound = HttpServletResponse.SC_NOT_FOUND;
-	public static int externalErrorCode = HttpServletResponse.SC_BAD_REQUEST;
-	public static int internalErrorCode = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-	public static int unauthorizedErrorCode = HttpServletResponse.SC_UNAUTHORIZED;
-	public static int forbiddenErrorCode = HttpServletResponse.SC_FORBIDDEN;
-
 	public static final Properties propertyRepository;
 
 	static {

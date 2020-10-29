@@ -11,7 +11,8 @@ public class Principal {
 	private Long tenantId;
 	private Long companyId;
 	private String companyName;
-	private Map<String, Object> dataMap = new HashMap<>();
+	private String token;
+	private Map<String, Object> map = new HashMap<>();
 
 	public Long getId() {
 		return id;
@@ -61,12 +62,20 @@ public class Principal {
 		this.companyName = companyName;
 	}
 
-	public Map<String, Object> getDataMap() {
-		return dataMap;
+	public Map<String, Object> getMap() {
+		return map;
 	}
 
-	public void setDataMap(Map<String, Object> dataMap) {
-		this.dataMap = dataMap;
+	public void setMap(Map<String, Object> map) {
+		this.map = map;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 }
