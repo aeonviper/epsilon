@@ -2,9 +2,7 @@ package epsilon.service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import common.BeanUtility;
 import epsilon.core.Utility;
@@ -14,15 +12,9 @@ import omega.service.GenericService;
 
 public class BaseService extends GenericService {
 
-	protected final Map<Class, Class> classTypeMapping = new HashMap<>() {
-		{
-			put(java.sql.Timestamp.class, java.time.LocalDateTime.class);
-		}
-	};
-
 	@Transactional
 	public <T> int insert(String tableName, String sequenceName, T entity, String... array) {
-		String sql = "insert into " + tableName + " (id," + join(array, ",") + ") values (nextval('" + sequenceName + "')," + repeat("?", array.length, ",") + ")";
+		String sql = "insert into " + tableName + " (id," + join(array, ",") + ") values ((select next value for " + sequenceName + ")," + repeat("?", array.length, ",") + ")";
 		List parameterList = new ArrayList<>();
 		try {
 			for (String entry : array) {

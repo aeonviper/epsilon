@@ -4,8 +4,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.Properties;
 
-import javax.servlet.http.HttpServletResponse;
-
 import io.fusionauth.jwt.Signer;
 import io.fusionauth.jwt.Verifier;
 import io.fusionauth.jwt.hmac.HMACSigner;
@@ -13,10 +11,10 @@ import io.fusionauth.jwt.hmac.HMACVerifier;
 
 public class Constant extends orion.core.Constant {
 
-	private static String jwtSecretKey = "vmFvHV%pHxA[3iW[5$TLKzkp}XZFexlgW6e*Zssw9cosEvpO@n~[$m5LmVXEYMnvZLaTVfuT4qFIPfJU{QdrIL24I9<3(Q<^09Bj8b5e9S[}O1c<uBQZIto#SSaB$mzd";
-	public static Signer jwtSigner = HMACSigner.newSHA512Signer(jwtSecretKey);
-	public static Verifier jwtVerifier = HMACVerifier.newVerifier(jwtSecretKey);
-	public static String jwtCookieName = "epsilon-jwt";
+	private static final String jwtSecretKey = "vmFvHV%pHxA[3iW[5$TLKzkp}XZFexlgW6e*Zssw9cosEvpO@n~[$m5LmVXEYMnvZLaTVfuT4qFIPfJU{QdrIL24I9<3(Q<^09Bj8b5e9S[}O1c<uBQZIto#SSaB$mzd";
+	public static final Signer jwtSigner = HMACSigner.newSHA512Signer(jwtSecretKey);
+	public static final Verifier jwtVerifier = HMACVerifier.newVerifier(jwtSecretKey);
+	public static final String jwtCookieName = "epsilon-jwt";
 
 	public static final File assetPath;
 	public static final File assetFilePath;

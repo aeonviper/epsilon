@@ -58,15 +58,31 @@ public class BaseController {
 	}
 
 	protected Notification notification = new Notification();
-	
+
 	protected View badRequestNotification = new View(View.Type.JSON, HttpServletResponse.SC_BAD_REQUEST, getNotificationMap());
 	protected View unauthorizedNotification = new View(View.Type.JSON, HttpServletResponse.SC_UNAUTHORIZED, getNotificationMap());
 	protected View forbiddenNotification = new View(View.Type.JSON, HttpServletResponse.SC_FORBIDDEN, getNotificationMap());
-	
+
 	protected View ok = new View(View.Type.JSON_TEXT, HttpServletResponse.SC_OK, "");
 	protected View badRequest = new View(View.Type.JSON_TEXT, HttpServletResponse.SC_BAD_REQUEST, "");
 	protected View unauthorized = new View(View.Type.JSON_TEXT, HttpServletResponse.SC_UNAUTHORIZED, "");
 	protected View forbidden = new View(View.Type.JSON_TEXT, HttpServletResponse.SC_FORBIDDEN, "");
+
+	public View ok(Object value) {
+		return new View(View.Type.JSON, value);
+	}
+
+	public View badRequest(Object value) {
+		return new View(View.Type.JSON, HttpServletResponse.SC_BAD_REQUEST, value);
+	}
+
+	public View unauthorized(Object value) {
+		return new View(View.Type.JSON, HttpServletResponse.SC_UNAUTHORIZED, value);
+	}
+
+	public View forbidden(Object value) {
+		return new View(View.Type.JSON, HttpServletResponse.SC_FORBIDDEN, value);
+	}
 
 	protected RequiredValidator requiredValidator = new RequiredValidator();
 	protected RequiredStringValidator requiredStringValidator = new RequiredStringValidator();

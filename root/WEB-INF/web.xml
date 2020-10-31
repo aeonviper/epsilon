@@ -5,7 +5,7 @@
 		<filter-name>header</filter-name>
 		<filter-class>epsilon.filter.HeaderFilter</filter-class>
 	</filter>
-	
+
 	<filter>
 		<filter-name>cors</filter-name>
 		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
@@ -15,7 +15,7 @@
 		</init-param>
 		<init-param>
 			<param-name>cors.allowed.headers</param-name>
-			<param-value>Access-Control-Request-Method, Access-Control-Request-Headers, Authorization, Content-Type, X-Requested-With, Accept, Origin</param-value>
+			<param-value>Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Allow-Origin, Authorization, Content-Type, X-Requested-With, Accept, Origin</param-value>
 		</init-param>
 		<init-param>
 			<param-name>cors.exposed.headers</param-name>
@@ -46,7 +46,7 @@
 		<url-pattern>/resource/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
-	
+
 	<filter-mapping>
 		<filter-name>header</filter-name>
 		<url-pattern>/asset/*</url-pattern>
@@ -86,8 +86,8 @@
 	</listener>
 
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 
 	<error-page>

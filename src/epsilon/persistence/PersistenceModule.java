@@ -4,11 +4,15 @@ import static com.google.inject.matcher.Matchers.annotatedWith;
 import static com.google.inject.matcher.Matchers.any;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.aopalliance.intercept.MethodInterceptor;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.TypeLiteral;
+import com.google.inject.name.Names;
 import com.zaxxer.hikari.HikariDataSource;
 
 import common.Core;
@@ -37,11 +41,25 @@ public class PersistenceModule extends AbstractModule {
 				mainDataSource.setUsername(propertyRepository.getProperty("main.database.username"));
 				mainDataSource.setPassword(propertyRepository.getProperty("main.database.password"));
 
+				String poolSize = propertyRepository.getProperty("main.database.pool.size");
+				if (poolSize != null) {
+					mainDataSource.setMaximumPoolSize(Integer.parseInt(poolSize));
+				} else {
+					mainDataSource.setMaximumPoolSize(10);
+				}
+
 				Core.setPropertyRepository(propertyRepository);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		bind(new TypeLiteral<Map<Class, Class>>() {
+		}).annotatedWith(Names.named("DefaultColumnClassMap")).toInstance(new HashMap<Class, Class>() {
+			{
+				put(java.sql.Timestamp.class, java.time.LocalDateTime.class);
+			}
+		});
 
 		bind(PersistenceService.class).toInstance(new PersistenceService(mainDataSource));
 		MethodInterceptor transactionInterceptor = new TransactionInterceptor();
