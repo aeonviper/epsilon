@@ -14,6 +14,17 @@ public class Principal {
 	private String token;
 	private Map<String, Object> map = new HashMap<>();
 
+	public static final Principal System = new Principal(null, null, null);
+
+	public Principal() {
+	}
+
+	public Principal(Long id, String email, String name) {
+		this.id = id;
+		this.email = email;
+		this.name = name;
+	}
+
 	public Long getId() {
 		return id;
 	}
