@@ -10,6 +10,8 @@
 		} else {
 			message = throwable.getMessage();
 		}
+		System.err.println("Throwable at " + java.time.LocalDateTime.now());
+		throwable.printStackTrace();
 	}
 	java.io.PrintWriter pw = response.getWriter();
 	pw.println(epsilon.core.Utility.gson.toJson(epsilon.core.Utility.makeMap( //
