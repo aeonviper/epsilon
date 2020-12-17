@@ -21,6 +21,8 @@ import epsilon.security.Principal;
 import io.fusionauth.jwt.JWTExpiredException;
 import io.fusionauth.jwt.domain.JWT;
 import orion.controller.Notification;
+import orion.navigation.Handle;
+import orion.navigation.Navigation;
 
 public class SessionFilter implements Filter {
 
@@ -35,6 +37,8 @@ public class SessionFilter implements Filter {
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
 
 		boolean valid = true;
+		Notification notification = new Notification();
+		Principal principal = null;
 
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		String path = Utility.getPath(request);
@@ -69,20 +73,53 @@ public class SessionFilter implements Filter {
 				if (encodedJwt != null) {
 					try {
 						JWT jwt = JWT.getDecoder().decode(encodedJwt, Constant.jwtVerifier);
-						Principal principal = Utility.gson.fromJson(jwt.getAllClaims().get("principal").toString(), Principal.class);
+						principal = Utility.gson.fromJson(jwt.getAllClaims().get("principal").toString(), Principal.class);
 						request.setAttribute(Principal.class.getCanonicalName(), principal);
 						valid = true;
 					} catch (JWTExpiredException e) {
-						// throw new RuntimeException("Your session has expired, please sign out and sign in again");
 					}
+				}
+
+				if (valid) {
+					Handle handle = Navigation.controllerFor(request, (HttpServletResponse) servletResponse);
+					if (handle != null) {
+						boolean allowed = false;
+						if (handle.getAllowList().isEmpty()) {
+							allowed = true;
+						} else {
+							for (String q : handle.getAllowList()) {
+								if (principal.getRole() != null && q.equals(principal.getRole().name())) {
+									allowed = true;
+									break;
+								}
+							}
+						}
+
+						boolean denied = false;
+						if (handle.getDenyList().isEmpty()) {
+
+						} else {
+							for (String q : handle.getDenyList()) {
+								if (principal.getRole() != null && q.equals(principal.getRole().name())) {
+									denied = true;
+									break;
+								}
+							}
+						}
+
+						if (allowed && !denied) {
+						} else {
+							valid = false;
+							notification.addNotice("You are not authorized.");
+						}
+					}
+				} else {
+					notification.addNotice("Your session has expired, please sign out and sign in again.");
 				}
 			}
 		}
 
 		if (!valid) {
-			Notification notification = new Notification();
-			notification.addNotice("Your session has expired, please sign out and sign in again");
-
 			Map<String, Object> map = new HashMap<>();
 			map.put("type", "NOTIFICATION");
 			map.put("noticeList", notification.getNoticeList());

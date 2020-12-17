@@ -3,6 +3,7 @@ package epsilon.service;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import common.BeanUtility;
 import epsilon.core.Utility;
@@ -14,7 +15,7 @@ public class BaseService extends GenericService {
 
 	@Transactional
 	public <T> int insert(String tableName, String sequenceName, T entity, String... array) {
-		String sql = "insert into " + tableName + " (id," + join(array, ",") + ") values ((select next value for " + sequenceName + ")," + repeat("?", array.length, ",") + ")";
+		String sql = "insert into " + tableName + " (id," + Utility.join(array, ",") + ") values ((select next value for " + sequenceName + ")," + Utility.repeat("?", array.length, ",") + ")";
 		List parameterList = new ArrayList<>();
 		try {
 			for (String entry : array) {
@@ -49,6 +50,37 @@ public class BaseService extends GenericService {
 		if (Utility.isNotBlank(entity.getMapData())) {
 			entity.setMap(Utility.gson.fromJson(entity.getMapData(), Utility.typeMapOfStringObject));
 		}
+	}
+
+	public <T extends BaseModel> List<T> apply(Function<T, T> function, List<T> list) {
+		if (list != null) {
+			for (T entry : list) {
+				function.apply(entry);
+			}
+		}
+		return list;
+	}
+
+	public <T extends BaseModel> List<T> sanitise(List<T> list) {
+		if (list != null) {
+			for (BaseModel entry : list) {
+				sanitise(entry);
+			}
+		}
+		return list;
+	}
+
+	public <T extends BaseModel> T sanitise(T entity) {
+		if (entity != null) {
+			entity.setCreatorId(null);
+			entity.setCreator(null);
+			entity.setCreated(null);
+			entity.setEditorId(null);
+			entity.setEditor(null);
+			entity.setEdited(null);
+			entity.setMapData(null);
+		}
+		return entity;
 	}
 
 }

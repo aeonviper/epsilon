@@ -18,7 +18,7 @@ public class MonitorController extends BaseController {
 	@Inject
 	TenantService tenantService;
 
-	@Path("/system/monitor/ping")
+	@Path(value = "/system/monitor/ping", allow = {}, deny = {})
 	public View ping() {
 		List<Tenant> tenantList = tenantService.list();
 		if (!tenantList.isEmpty()) {
@@ -27,7 +27,7 @@ public class MonitorController extends BaseController {
 		return new View(Type.TEXT_PLAIN, "Error");
 	}
 
-	@Path(value = "/system/monitor/storage")
+	@Path(value = "/system/monitor/storage", allow = {}, deny = {})
 	public View storage( //
 			@Parameter("token") String token, //
 			@Parameter("action") String action, //

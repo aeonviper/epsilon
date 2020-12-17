@@ -3,14 +3,15 @@ package epsilon.security;
 import java.util.HashMap;
 import java.util.Map;
 
+import epsilon.model.PersonRole;
+
 public class Principal {
 
 	private Long id;
 	private String name;
 	private String email;
 	private Long tenantId;
-	private Long companyId;
-	private String companyName;
+	private PersonRole role;
 	private String token;
 	private Map<String, Object> map = new HashMap<>();
 
@@ -57,22 +58,6 @@ public class Principal {
 		this.tenantId = tenantId;
 	}
 
-	public Long getCompanyId() {
-		return companyId;
-	}
-
-	public void setCompanyId(Long companyId) {
-		this.companyId = companyId;
-	}
-
-	public String getCompanyName() {
-		return companyName;
-	}
-
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-
 	public Map<String, Object> getMap() {
 		return map;
 	}
@@ -87,6 +72,10 @@ public class Principal {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public PersonRole getRole() {
+		return role;
 	}
 
 }
