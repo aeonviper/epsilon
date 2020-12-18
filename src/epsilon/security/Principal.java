@@ -17,13 +17,16 @@ public class Principal {
 
 	public static final Principal System = new Principal(null, null, null);
 
-	public Principal() {
-	}
-
 	public Principal(Long id, String email, String name) {
 		this.id = id;
 		this.email = email;
 		this.name = name;
+	}
+
+	public Principal essence() {
+		Principal principal = new Principal(this.id, this.email, this.name);
+		principal.setMap(null);
+		return principal;
 	}
 
 	public Long getId() {

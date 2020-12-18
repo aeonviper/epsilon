@@ -14,7 +14,7 @@ import omega.service.GenericService;
 public class BaseService extends GenericService {
 
 	@Transactional
-	public <T> int insert(String tableName, String sequenceName, T entity, String... array) {
+	public <T> int create(String tableName, String sequenceName, T entity, String... array) {
 		String sql = "insert into " + tableName + " (id," + Utility.join(array, ",") + ") values ((select next value for " + sequenceName + ")," + Utility.repeat("?", array.length, ",") + ")";
 		List parameterList = new ArrayList<>();
 		try {
@@ -29,9 +29,22 @@ public class BaseService extends GenericService {
 	}
 
 	@Transactional
+	public <T> int create(String tableName, BaseModel entity, String... array) {
+		int result = super.insert(tableName, entity, array);
+		if (result == 1) {
+			entity.setId(id());
+		}
+		return result;
+	}
+
+	@Transactional
 	public Long sequence(String name) {
-		// return select(Long.class, "select nextval('" + name + "')");
 		return select(Long.class, "select next value for " + name + "");
+	}
+
+	@Transactional
+	public Long id() {
+		return select(Long.class, "select last_insert_id()");
 	}
 
 	public static void toDecorate(BaseModel entity) {
@@ -49,38 +62,43 @@ public class BaseService extends GenericService {
 		}
 		if (Utility.isNotBlank(entity.getMapData())) {
 			entity.setMap(Utility.gson.fromJson(entity.getMapData(), Utility.typeMapOfStringObject));
+			entity.setMapData(null);
 		}
 	}
 
-	public <T extends BaseModel> List<T> apply(Function<T, T> function, List<T> list) {
+	public static <T extends BaseModel> List<T> apply(List<T> list, Function<T, T>... functionArray) {
 		if (list != null) {
 			for (T entry : list) {
-				function.apply(entry);
+				for (Function function : functionArray) {
+					function.apply(entry);
+				}
 			}
 		}
 		return list;
 	}
 
-	public <T extends BaseModel> List<T> sanitise(List<T> list) {
-		if (list != null) {
-			for (BaseModel entry : list) {
-				sanitise(entry);
-			}
-		}
-		return list;
-	}
-
-	public <T extends BaseModel> T sanitise(T entity) {
+	public static <T extends BaseModel> T apply(T entity, Function<T, T>... functionArray) {
 		if (entity != null) {
-			entity.setCreatorId(null);
-			entity.setCreator(null);
-			entity.setCreated(null);
-			entity.setEditorId(null);
-			entity.setEditor(null);
-			entity.setEdited(null);
-			entity.setMapData(null);
+			for (Function function : functionArray) {
+				function.apply(entity);
+			}
 		}
 		return entity;
 	}
+
+	public static Function<BaseModel, BaseModel> sanitizerRemoveCreateEdit = new Function<BaseModel, BaseModel>() {
+		public BaseModel apply(BaseModel entity) {
+			if (entity != null) {
+				entity.setCreatorId(null);
+				entity.setCreator(null);
+				entity.setCreated(null);
+				entity.setEditorId(null);
+				entity.setEditor(null);
+				entity.setEdited(null);
+				entity.setMapData(null);
+			}
+			return entity;
+		}
+	};
 
 }

@@ -45,6 +45,7 @@ public class SessionFilter implements Filter {
 		if (path.startsWith("/system")) {
 			if ( //
 			path.startsWith("/system/authentication") //
+					|| path.startsWith("/system/common") //
 					|| path.startsWith("/system/monitor") //
 			) {
 

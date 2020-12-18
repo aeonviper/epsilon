@@ -27,13 +27,27 @@ public class BaseModel {
 	public void createdBy(Principal principal) {
 		setCreated(Utility.now());
 		setCreatorId(principal.getId());
-		setCreator(Utility.gson.toJson(principal));
+		setCreator(Utility.gson.toJson(principal.essence()));
 	}
 
 	public void editedBy(Principal principal) {
 		setEdited(Utility.now());
 		setEditorId(principal.getId());
-		setEditor(Utility.gson.toJson(principal));
+		setEditor(Utility.gson.toJson(principal.essence()));
+	}
+
+	public Object getTransit(String key) {
+		if (transitMap != null) {
+			return transitMap.get(key);
+		}
+		return null;
+	}
+
+	public Object putTransit(String key, Object value) {
+		if (transitMap != null) {
+			return transitMap.put(key, value);
+		}
+		return null;
 	}
 
 	public Long getId() {

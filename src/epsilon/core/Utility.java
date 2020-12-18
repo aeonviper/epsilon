@@ -1,10 +1,13 @@
 package epsilon.core;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
@@ -33,16 +36,20 @@ public class Utility extends orion.core.Utility {
 	public static final Type typeListOfString = new TypeToken<List<String>>() {
 	}.getType();
 
-	public static boolean isTrue(Boolean expression) {
-		return Boolean.TRUE.equals(expression);
+	public static boolean copyFile(File source, File destination) {
+		return copyFile(source, destination, true);
 	}
 
-	public static String csvField(Object object) {
-		if (object == null) {
-			return "";
-		} else {
-			String text = String.valueOf(object);
-			return "\"" + text.replace("\"", "\"\"") + "\"";
+	public static boolean copyFile(File source, File destination, boolean overwrite) {
+		try {
+			if (!overwrite && destination != null && destination.exists()) {
+				return true;
+			}
+			Files.copy(source, destination);
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 
