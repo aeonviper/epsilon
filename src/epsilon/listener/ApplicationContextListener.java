@@ -11,7 +11,11 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+import epsilon.controller.AuthenticationController;
+import epsilon.controller.CommonController;
 import epsilon.controller.MonitorController;
+import epsilon.controller.PersonController;
+import epsilon.controller.ShopController;
 import epsilon.persistence.PersistenceModule;
 import orion.core.Constant;
 import orion.navigation.Navigation;
@@ -33,6 +37,10 @@ public class ApplicationContextListener implements ServletContextListener {
 		common.Core.setInjector(injector);
 
 		Navigation.configuration( //
+				ShopController.class, //
+				AuthenticationController.class, //
+				PersonController.class, //
+				CommonController.class, //
 				MonitorController.class //
 		);
 

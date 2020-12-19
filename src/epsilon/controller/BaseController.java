@@ -62,12 +62,14 @@ public class BaseController {
 	protected View badRequestNotification = new View(View.Type.JSON, HttpServletResponse.SC_BAD_REQUEST, getNotificationMap());
 	protected View unauthorizedNotification = new View(View.Type.JSON, HttpServletResponse.SC_UNAUTHORIZED, getNotificationMap());
 	protected View forbiddenNotification = new View(View.Type.JSON, HttpServletResponse.SC_FORBIDDEN, getNotificationMap());
+	protected View notFoundNotification = new View(View.Type.JSON, HttpServletResponse.SC_NOT_FOUND, getNotificationMap());
 	protected View errorNotification = new View(View.Type.JSON, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, getNotificationMap());
 
 	protected View ok = new View(View.Type.JSON_TEXT, HttpServletResponse.SC_OK, "");
 	protected View badRequest = new View(View.Type.JSON_TEXT, HttpServletResponse.SC_BAD_REQUEST, "");
 	protected View unauthorized = new View(View.Type.JSON_TEXT, HttpServletResponse.SC_UNAUTHORIZED, "");
 	protected View forbidden = new View(View.Type.JSON_TEXT, HttpServletResponse.SC_FORBIDDEN, "");
+	protected View notFound = new View(View.Type.JSON_TEXT, HttpServletResponse.SC_NOT_FOUND, "");
 	protected View error = new View(View.Type.JSON_TEXT, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "");
 
 	public View ok(Object value) {
@@ -84,6 +86,10 @@ public class BaseController {
 
 	public View forbidden(Object value) {
 		return new View(View.Type.JSON, HttpServletResponse.SC_FORBIDDEN, value);
+	}
+
+	public View notFound(Object value) {
+		return new View(View.Type.JSON, HttpServletResponse.SC_NOT_FOUND, value);
 	}
 
 	public View error(Object value) {

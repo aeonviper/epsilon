@@ -8,7 +8,7 @@
 
 	<filter>
 		<filter-name>asset</filter-name>
-		<filter-class>insignia.filter.AssetFilter</filter-class>
+		<filter-class>epsilon.filter.AssetFilter</filter-class>
 	</filter>
 
 	<filter>
@@ -20,19 +20,11 @@
 		</init-param>
 		<init-param>
 			<param-name>cors.allowed.headers</param-name>
-			<param-value>Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Allow-Origin, Authorization, Content-Type, X-Requested-With, Accept, Origin</param-value>
-		</init-param>
-		<init-param>
-			<param-name>cors.exposed.headers</param-name>
-			<param-value>Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization</param-value>
+			<param-value>Authorization, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers</param-value>
 		</init-param>
 		<init-param>
 			<param-name>cors.support.credentials</param-name>
 			<param-value>true</param-value>
-		</init-param>
-		<init-param>
-			<param-name>cors.preflight.maxage</param-name>
-			<param-value>10</param-value>
 		</init-param>
 	</filter>
 

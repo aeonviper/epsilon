@@ -86,7 +86,7 @@ public class BaseService extends GenericService {
 		return entity;
 	}
 
-	public static Function<BaseModel, BaseModel> sanitizerRemoveCreateEdit = new Function<BaseModel, BaseModel>() {
+	public static Function<BaseModel, BaseModel> sanitizerBase = new Function<BaseModel, BaseModel>() {
 		public BaseModel apply(BaseModel entity) {
 			if (entity != null) {
 				entity.setCreatorId(null);

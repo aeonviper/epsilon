@@ -55,11 +55,7 @@ public class PersistenceModule extends AbstractModule {
 		}
 
 		bind(new TypeLiteral<Map<Class, Class>>() {
-		}).annotatedWith(Names.named("DefaultColumnClassMap")).toInstance(new HashMap<Class, Class>() {
-			{
-				put(java.sql.Timestamp.class, java.time.LocalDateTime.class);
-			}
-		});
+		}).annotatedWith(Names.named("DefaultColumnClassMap")).toInstance(classTypeMapping);
 
 		bind(PersistenceService.class).toInstance(new PersistenceService(mainDataSource));
 		MethodInterceptor transactionInterceptor = new TransactionInterceptor();
@@ -68,4 +64,10 @@ public class PersistenceModule extends AbstractModule {
 		bindInterceptor(any(), annotatedWith(Transactional.class), transactionInterceptor);
 
 	}
+
+	public static final Map<Class, Class> classTypeMapping = new HashMap<>() {
+		{
+			put(java.sql.Timestamp.class, java.time.LocalDateTime.class);
+		}
+	};
 }
