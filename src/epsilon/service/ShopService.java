@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.function.Function;
 
 import epsilon.core.Utility;
-import epsilon.model.Shop;
 import epsilon.model.Product;
+import epsilon.model.Shop;
 import epsilon.persistence.PersistenceModule;
 import omega.annotation.Transactional;
 import omega.service.Builder;
@@ -24,11 +24,6 @@ public class ShopService extends BaseService {
 				return entity;
 			}
 			toDecorate(entity);
-
-			if (entity.getProductList() != null) {
-				entity.setProductListData(Utility.gson.toJson(entity.getProductList()));
-			}
-
 			return entity;
 		}
 	};
@@ -40,12 +35,6 @@ public class ShopService extends BaseService {
 				return entity;
 			}
 			fromDecorate(entity);
-
-			if (Utility.isNotBlank(entity.getProductListData())) {
-				entity.setProductList(Utility.gson.fromJson(entity.getProductListData(), Utility.typeListOfString));
-				entity.setProductListData(null);
-			}
-
 			return entity;
 		}
 	};
@@ -109,7 +98,7 @@ public class ShopService extends BaseService {
 				new Specification("second", Product.class) //
 		}), "select " + //
 				"shop.id as firstId, shop.name as firstName, shop.slug as firstSlug, " + //
-				"product.id as secondId, product.name as secondName, product.slug as secondSlug, product.quantity as secondQuantity" + //
+				"product.id as secondId, product.name as secondName, product.slug as secondSlug, product.quantity as secondQuantity " + //
 				"from shop join product on product.shopId = shop.id order by shop.name");
 		return list;
 	}

@@ -10,9 +10,6 @@ public class Shop extends BaseModel {
 	protected String slug;
 	protected String name;
 
-	protected List<Product> productList = new ArrayList<>();
-	protected String productListData;
-
 	// transient
 	protected List<Product> additionalProductList = new ArrayList<>();
 
@@ -54,22 +51,6 @@ public class Shop extends BaseModel {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getProductListData() {
-		return productListData;
-	}
-
-	public void setProductListData(String productListData) {
-		this.productListData = productListData;
-	}
-
-	public List<Product> getProductList() {
-		return productList;
-	}
-
-	public void setProductList(List<Product> productList) {
-		this.productList = productList;
 	}
 
 	public List<Product> getAdditionalProductList() {

@@ -1,18 +1,10 @@
 package epsilon.controller;
 
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-
 import javax.inject.Inject;
-import javax.servlet.http.Cookie;
 
-import epsilon.core.Constant;
 import epsilon.core.Utility;
 import epsilon.model.Person;
-import epsilon.security.Principal;
-import epsilon.service.BaseService;
 import epsilon.service.PersonService;
-import io.fusionauth.jwt.domain.JWT;
 import orion.annotation.Parameter;
 import orion.annotation.Path;
 import orion.validation.field.RequiredField;
