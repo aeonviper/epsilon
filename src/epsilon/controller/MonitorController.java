@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import epsilon.model.Tenant;
-import epsilon.service.TenantService;
+import epsilon.model.Template;
+import epsilon.service.TemplateService;
 import orion.annotation.Parameter;
 import orion.annotation.Path;
 import orion.view.View;
@@ -16,11 +16,11 @@ import orion.view.View.Type;
 public class MonitorController extends BaseController {
 
 	@Inject
-	TenantService tenantService;
+	TemplateService templateService;
 
 	@Path(value = "/system/monitor/ping", allow = {}, deny = {})
 	public View ping() {
-		List<Tenant> tenantList = tenantService.list();
+		List<Template> tenantList = templateService.list();
 		if (!tenantList.isEmpty()) {
 			return new View(Type.TEXT_PLAIN, "OK");
 		}

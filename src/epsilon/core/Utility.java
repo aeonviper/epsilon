@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Map;
 
 import com.google.common.io.Files;
@@ -28,12 +27,6 @@ public class Utility extends orion.core.Utility {
 	public static final DateTimeFormatter fullDateFormat = DateTimeFormatter.ofPattern("dd MMMM yyyy");
 
 	public static final Type typeMapOfStringObject = new TypeToken<Map<String, Object>>() {
-	}.getType();
-
-	public static final Type typeListOfLong = new TypeToken<List<Long>>() {
-	}.getType();
-
-	public static final Type typeListOfString = new TypeToken<List<String>>() {
 	}.getType();
 
 	public static boolean copyFile(File source, File destination) {

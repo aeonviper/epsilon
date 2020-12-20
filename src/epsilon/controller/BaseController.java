@@ -1,17 +1,11 @@
 package epsilon.controller;
 
-import java.security.SecureRandom;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import epsilon.security.Principal;
-import orion.annotation.Request;
-import orion.annotation.Response;
 import orion.controller.Notification;
 import orion.validation.field.DoubleRangeField;
 import orion.validation.field.EmailField;
@@ -35,23 +29,6 @@ import orion.validation.validator.URLValidator;
 import orion.view.View;
 
 public class BaseController {
-
-	protected Principal principal;
-
-	protected HttpServletRequest request;
-
-	protected HttpServletResponse response;
-
-	@Request
-	public void setRequest(HttpServletRequest request) {
-		this.request = request;
-		this.principal = (Principal) request.getAttribute(Principal.class.getCanonicalName());
-	}
-
-	@Response
-	public void setServletResponse(HttpServletResponse response) {
-		this.response = response;
-	}
 
 	protected Notification notification = new Notification();
 
