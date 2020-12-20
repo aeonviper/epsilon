@@ -36,11 +36,7 @@ import orion.view.View;
 
 public class BaseController {
 
-	protected static final Random random = new SecureRandom();
-
 	protected Principal principal;
-
-	protected String parameter;
 
 	protected HttpServletRequest request;
 
@@ -154,14 +150,6 @@ public class BaseController {
 
 	public Notification getNotification() {
 		return notification;
-	}
-
-	public String getParameter() {
-		return parameter;
-	}
-
-	public void setParameter(String parameter) {
-		this.parameter = parameter;
 	}
 
 	public Map<String, Object> getNotificationMap() {

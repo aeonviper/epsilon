@@ -106,7 +106,7 @@ public class ShopService extends BaseService {
 
 	// build yourself
 	@Transactional
-	public List<Shop> listPresenterByPresentationId(Long presentationId) {
+	public List<Shop> listBuild(Long presentationId) {
 		return apply(list(new Builder<Shop>() {
 			public Shop build(ResultData rd) throws SQLException {
 				Shop shop = new Shop();
