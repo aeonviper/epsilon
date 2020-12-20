@@ -10,6 +10,7 @@ import epsilon.model.Product;
 import epsilon.model.Shop;
 import epsilon.persistence.PersistenceModule;
 import omega.annotation.Transactional;
+import omega.service.BatchPreparer;
 import omega.service.Builder;
 import omega.service.Decorator;
 import omega.service.ResultData;
@@ -119,6 +120,22 @@ public class ShopService extends BaseService {
 			}
 		}, "select shop.id, product.slug as name from shop join product on product.shopId = shop.id order by shop.name", //
 				presentationId), sanitizer);
+	}
+
+	@Transactional
+	public void batchInsert(List<Shop> entityList) {
+		String sql = //
+				"insert into shop " + //
+						"(slug, name) " + //
+						"values " + //
+						"(?, ?)";
+		batch(50, sql, toDecorator, new BatchPreparer<Shop>() {
+			public Object[] toFieldArray(Shop entity) {
+				return new Object[] { //
+						entity.getSlug(), //
+						entity.getName() };
+			}
+		}, entityList);
 	}
 
 }

@@ -1,5 +1,6 @@
 package epsilon.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,8 @@ import common.Utility;
 import epsilon.model.Product;
 import epsilon.model.Shop;
 import epsilon.service.ShopService;
+import omega.service.TransactionContext;
+import omega.service.TransactionService;
 import orion.annotation.Parameter;
 import orion.annotation.Path;
 import orion.annotation.PathSet;
@@ -25,6 +28,9 @@ public class ShopController extends BaseController {
 
 	@Inject
 	ShopService shopService;
+
+	@Inject
+	TransactionService transactionService;
 
 	@PathSet({ //
 			@Path(value = "/system/common/shop/([0-9]+)", name = "entityId", allow = {}, deny = {}), //
@@ -75,6 +81,53 @@ public class ShopController extends BaseController {
 		shopMap.put("store2", new Shop(2L, "shop2", "Shop 2"));
 
 		return ok(Utility.makeMap("store3", new Shop(3L, "shop3", "Shop 3"), "shop", shop, "genericMap", genericMap));
+	}
+
+	@Path(value = "/system/common/shop/bulk/add", allow = {}, deny = {}) //
+	public View bulkAdd(@Parameter("limit") Integer limit) {
+		limit = Utility.coalesce(limit, 1000);
+		long start = System.currentTimeMillis();
+		for (int i = 0; i < limit; i++) {
+			Shop shop = new Shop(null, "store-" + i, "Store-" + i);
+			shopService.save(shop);
+		}
+		long finish = System.currentTimeMillis();
+		System.out.println(finish - start + "ms");
+		return ok(finish - start);
+	}
+
+	@Path(value = "/system/common/shop/bulk/add/transaction", allow = {}, deny = {}) //
+	public View bulkAddTransaction(@Parameter("limit") Integer limit) {
+		limit = Utility.coalesce(limit, 1000);
+		long start = System.currentTimeMillis();
+		Integer result = transactionService.action(new TransactionContext<Integer>() {
+			public Integer action(Object... array) {
+				Integer limit = (Integer) array[0];
+				for (int i = 0; i < limit; i++) {
+					Shop shop = new Shop(null, "store-" + i, "Store-" + i);
+					shopService.save(shop);
+				}
+				return 0;
+			}
+		}, limit);
+		long finish = System.currentTimeMillis();
+		System.out.println(finish - start + "ms");
+		return ok(finish - start);
+	}
+
+	@Path(value = "/system/common/shop/bulk/add/batch", allow = {}, deny = {}) //
+	public View bulkAddBatch(@Parameter("limit") Integer limit) {
+		limit = Utility.coalesce(limit, 1000);
+		long start = System.currentTimeMillis();
+		List<Shop> shopList = new ArrayList<>();
+		for (int i = 0; i < limit; i++) {
+			Shop shop = new Shop(null, "store-" + i, "Store-" + i);
+			shopList.add(shop);
+		}
+		shopService.batchInsert(shopList);
+		long finish = System.currentTimeMillis();
+		System.out.println(finish - start + "ms");
+		return ok(finish - start);
 	}
 
 }
