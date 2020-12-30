@@ -1,5 +1,7 @@
 package epsilon.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,10 +17,11 @@ import orion.validation.field.RequiredField;
 import orion.validation.field.RequiredStringField;
 import orion.validation.field.StringLengthField;
 import orion.validation.field.URLField;
-import orion.validation.validator.DateRangeValidator;
 import orion.validation.validator.DoubleRangeValidator;
 import orion.validation.validator.EmailValidator;
 import orion.validation.validator.IntegerRangeValidator;
+import orion.validation.validator.LocalDateRangeValidator;
+import orion.validation.validator.LocalDateTimeRangeValidator;
 import orion.validation.validator.LongRangeValidator;
 import orion.validation.validator.RegexValidator;
 import orion.validation.validator.RequiredStringValidator;
@@ -75,54 +78,59 @@ public class BaseController {
 	protected IntegerRangeValidator integerRangeValidator = new IntegerRangeValidator();
 	protected LongRangeValidator longRangeValidator = new LongRangeValidator();
 	protected ShortRangeValidator shortRangeValidator = new ShortRangeValidator();
-	protected DateRangeValidator dateRangeValidator = new DateRangeValidator();
+	protected LocalDateRangeValidator localDateRangeValidator = new LocalDateRangeValidator();
+	protected LocalDateTimeRangeValidator localDateTimeRangeValidator = new LocalDateTimeRangeValidator();
 	protected DoubleRangeValidator doubleRangeValidator = new DoubleRangeValidator();
 	protected RegexValidator regexValidator = new RegexValidator();
 	protected EmailValidator emailValidator = new EmailValidator();
 	protected URLValidator urlValidator = new URLValidator();
 
-	protected boolean validateRequired(RequiredField... fields) {
-		return requiredValidator.validate(notification, fields);
+	protected boolean validateRequired(RequiredField... fieldArray) {
+		return requiredValidator.validate(notification, fieldArray);
 	}
 
-	protected boolean validateRequiredString(RequiredStringField... fields) {
-		return requiredStringValidator.validate(notification, fields);
+	protected boolean validateRequiredString(RequiredStringField... fieldArray) {
+		return requiredStringValidator.validate(notification, fieldArray);
 	}
 
-	protected boolean validateStringLength(StringLengthField... fields) {
-		return stringLengthValidator.validate(notification, fields);
+	protected boolean validateStringLength(StringLengthField... fieldArray) {
+		return stringLengthValidator.validate(notification, fieldArray);
 	}
 
-	protected boolean validateIntegerRange(GenericRangeField<Integer>... fields) {
-		return integerRangeValidator.validate(notification, fields);
+	protected boolean validateIntegerRange(GenericRangeField<Integer>... fieldArray) {
+		return integerRangeValidator.validate(notification, fieldArray);
 	}
 
-	protected boolean validateLongRange(GenericRangeField<Long>... fields) {
-		return longRangeValidator.validate(notification, fields);
+	protected boolean validateLongRange(GenericRangeField<Long>... fieldArray) {
+		return longRangeValidator.validate(notification, fieldArray);
 	}
 
-	protected boolean validateShortRange(GenericRangeField<Short>... fields) {
-		return shortRangeValidator.validate(notification, fields);
+	protected boolean validateShortRange(GenericRangeField<Short>... fieldArray) {
+		return shortRangeValidator.validate(notification, fieldArray);
 	}
 
-	protected boolean validateDateRange(GenericRangeField<Date>... fields) {
-		return dateRangeValidator.validate(notification, fields);
+	protected boolean validateLocalDateRange(GenericRangeField<LocalDate>... fieldArray) {
+		return localDateRangeValidator.validate(notification, fieldArray);
 	}
 
-	protected boolean validateDoubleRange(DoubleRangeField... fields) {
-		return doubleRangeValidator.validate(notification, fields);
+	protected boolean validateLocalDateTimeRange(GenericRangeField<LocalDateTime>... fieldArray) {
+		return localDateTimeRangeValidator.validate(notification, fieldArray);
 	}
 
-	protected boolean validateRegex(RegexField... fields) {
-		return regexValidator.validate(notification, fields);
+	protected boolean validateDoubleRange(DoubleRangeField... fieldArray) {
+		return doubleRangeValidator.validate(notification, fieldArray);
 	}
 
-	protected boolean validateEmail(EmailField... fields) {
-		return emailValidator.validate(notification, fields);
+	protected boolean validateRegex(RegexField... fieldArray) {
+		return regexValidator.validate(notification, fieldArray);
 	}
 
-	protected boolean validateURL(URLField... fields) {
-		return urlValidator.validate(notification, fields);
+	protected boolean validateEmail(EmailField... fieldArray) {
+		return emailValidator.validate(notification, fieldArray);
+	}
+
+	protected boolean validateURL(URLField... fieldArray) {
+		return urlValidator.validate(notification, fieldArray);
 	}
 
 	protected boolean validateRequired(Object... array) {
@@ -191,15 +199,26 @@ public class BaseController {
 		return validateShortRange(fieldArray);
 	}
 
-	protected boolean validateDateRange(Object... array) {
+	protected boolean validateLocalDateRange(Object... array) {
 		if (array.length % 2 != 0) {
 			throw new RuntimeException("Validation array length should be even");
 		}
-		GenericRangeField<Date>[] fieldArray = new GenericRangeField[array.length / 2];
+		GenericRangeField<LocalDate>[] fieldArray = new GenericRangeField[array.length / 2];
 		for (int i = 0; i < array.length; i = i + 2) {
-			fieldArray[i / 2] = new GenericRangeField<Date>((String) array[i], array[i + 1]);
+			fieldArray[i / 2] = new GenericRangeField<LocalDate>((String) array[i], array[i + 1]);
 		}
-		return validateDateRange(fieldArray);
+		return validateLocalDateRange(fieldArray);
+	}
+
+	protected boolean validateLocalDateTimeRange(Object... array) {
+		if (array.length % 2 != 0) {
+			throw new RuntimeException("Validation array length should be even");
+		}
+		GenericRangeField<LocalDateTime>[] fieldArray = new GenericRangeField[array.length / 2];
+		for (int i = 0; i < array.length; i = i + 2) {
+			fieldArray[i / 2] = new GenericRangeField<LocalDateTime>((String) array[i], array[i + 1]);
+		}
+		return validateLocalDateTimeRange(fieldArray);
 	}
 
 	protected boolean validateDoubleRange(Object... array) {
