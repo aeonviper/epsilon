@@ -125,6 +125,127 @@ public class BaseController {
 		return urlValidator.validate(notification, fields);
 	}
 
+	protected boolean validateRequired(Object... array) {
+		if (array.length % 2 != 0) {
+			throw new RuntimeException("Validation array length should be even");
+		}
+		RequiredField[] fieldArray = new RequiredField[array.length / 2];
+		for (int i = 0; i < array.length; i = i + 2) {
+			fieldArray[i / 2] = new RequiredField((String) array[i], array[i + 1]);
+		}
+		return validateRequired(fieldArray);
+	}
+
+	protected boolean validateRequiredString(Object... array) {
+		if (array.length % 2 != 0) {
+			throw new RuntimeException("Validation array length should be even");
+		}
+		RequiredStringField[] fieldArray = new RequiredStringField[array.length / 2];
+		for (int i = 0; i < array.length; i = i + 2) {
+			fieldArray[i / 2] = new RequiredStringField((String) array[i], array[i + 1]);
+		}
+		return validateRequiredString(fieldArray);
+	}
+
+	protected boolean validateStringLength(Object... array) {
+		if (array.length % 2 != 0) {
+			throw new RuntimeException("Validation array length should be even");
+		}
+		StringLengthField[] fieldArray = new StringLengthField[array.length / 2];
+		for (int i = 0; i < array.length; i = i + 2) {
+			fieldArray[i / 2] = new StringLengthField((String) array[i], array[i + 1]);
+		}
+		return validateStringLength(fieldArray);
+	}
+
+	protected boolean validateIntegerRange(Object... array) {
+		if (array.length % 2 != 0) {
+			throw new RuntimeException("Validation array length should be even");
+		}
+		GenericRangeField<Integer>[] fieldArray = new GenericRangeField[array.length / 2];
+		for (int i = 0; i < array.length; i = i + 2) {
+			fieldArray[i / 2] = new GenericRangeField<Integer>((String) array[i], array[i + 1]);
+		}
+		return validateIntegerRange(fieldArray);
+	}
+
+	protected boolean validateLongRange(Object... array) {
+		if (array.length % 2 != 0) {
+			throw new RuntimeException("Validation array length should be even");
+		}
+		GenericRangeField<Long>[] fieldArray = new GenericRangeField[array.length / 2];
+		for (int i = 0; i < array.length; i = i + 2) {
+			fieldArray[i / 2] = new GenericRangeField<Long>((String) array[i], array[i + 1]);
+		}
+		return validateLongRange(fieldArray);
+	}
+
+	protected boolean validateShortRange(Object... array) {
+		if (array.length % 2 != 0) {
+			throw new RuntimeException("Validation array length should be even");
+		}
+		GenericRangeField<Short>[] fieldArray = new GenericRangeField[array.length / 2];
+		for (int i = 0; i < array.length; i = i + 2) {
+			fieldArray[i / 2] = new GenericRangeField<Short>((String) array[i], array[i + 1]);
+		}
+		return validateShortRange(fieldArray);
+	}
+
+	protected boolean validateDateRange(Object... array) {
+		if (array.length % 2 != 0) {
+			throw new RuntimeException("Validation array length should be even");
+		}
+		GenericRangeField<Date>[] fieldArray = new GenericRangeField[array.length / 2];
+		for (int i = 0; i < array.length; i = i + 2) {
+			fieldArray[i / 2] = new GenericRangeField<Date>((String) array[i], array[i + 1]);
+		}
+		return validateDateRange(fieldArray);
+	}
+
+	protected boolean validateDoubleRange(Object... array) {
+		if (array.length % 2 != 0) {
+			throw new RuntimeException("Validation array length should be even");
+		}
+		DoubleRangeField[] fieldArray = new DoubleRangeField[array.length / 2];
+		for (int i = 0; i < array.length; i = i + 2) {
+			fieldArray[i / 2] = new DoubleRangeField((String) array[i], array[i + 1]);
+		}
+		return validateDoubleRange(fieldArray);
+	}
+
+	protected boolean validateRegex(Object... array) {
+		if (array.length % 2 != 0) {
+			throw new RuntimeException("Validation array length should be even");
+		}
+		RegexField[] fieldArray = new RegexField[array.length / 2];
+		for (int i = 0; i < array.length; i = i + 2) {
+			fieldArray[i / 2] = new RegexField((String) array[i], array[i + 1]);
+		}
+		return validateRegex(fieldArray);
+	}
+
+	protected boolean validateEmail(Object... array) {
+		if (array.length % 2 != 0) {
+			throw new RuntimeException("Validation array length should be even");
+		}
+		EmailField[] fieldArray = new EmailField[array.length / 2];
+		for (int i = 0; i < array.length; i = i + 2) {
+			fieldArray[i / 2] = new EmailField((String) array[i], array[i + 1]);
+		}
+		return validateEmail(fieldArray);
+	}
+
+	protected boolean validateURL(Object... array) {
+		if (array.length % 2 != 0) {
+			throw new RuntimeException("Validation array length should be even");
+		}
+		URLField[] fieldArray = new URLField[array.length / 2];
+		for (int i = 0; i < array.length; i = i + 2) {
+			fieldArray[i / 2] = new URLField((String) array[i], array[i + 1]);
+		}
+		return validateURL(fieldArray);
+	}
+
 	public Notification getNotification() {
 		return notification;
 	}
