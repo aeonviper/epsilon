@@ -34,11 +34,12 @@ public class BaseController {
 
 	protected Notification notification = new Notification();
 
-	protected View badRequestNotification = new View(View.Type.JSON, HttpServletResponse.SC_BAD_REQUEST, getNotificationMap());
-	protected View unauthorizedNotification = new View(View.Type.JSON, HttpServletResponse.SC_UNAUTHORIZED, getNotificationMap());
-	protected View forbiddenNotification = new View(View.Type.JSON, HttpServletResponse.SC_FORBIDDEN, getNotificationMap());
-	protected View notFoundNotification = new View(View.Type.JSON, HttpServletResponse.SC_NOT_FOUND, getNotificationMap());
-	protected View errorNotification = new View(View.Type.JSON, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, getNotificationMap());
+	protected View okNotification = new View(View.Type.JSON, HttpServletResponse.SC_OK, notification);
+	protected View badRequestNotification = new View(View.Type.JSON, HttpServletResponse.SC_BAD_REQUEST, notification);
+	protected View unauthorizedNotification = new View(View.Type.JSON, HttpServletResponse.SC_UNAUTHORIZED, notification);
+	protected View forbiddenNotification = new View(View.Type.JSON, HttpServletResponse.SC_FORBIDDEN, notification);
+	protected View notFoundNotification = new View(View.Type.JSON, HttpServletResponse.SC_NOT_FOUND, notification);
+	protected View errorNotification = new View(View.Type.JSON, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, notification);
 
 	protected View ok = new View(View.Type.JSON_TEXT, HttpServletResponse.SC_OK, "");
 	protected View badRequest = new View(View.Type.JSON_TEXT, HttpServletResponse.SC_BAD_REQUEST, "");
@@ -156,15 +157,6 @@ public class BaseController {
 
 	public Notification getNotification() {
 		return notification;
-	}
-
-	public Map<String, Object> getNotificationMap() {
-		Map<String, Object> map = new HashMap<>();
-		map.put("type", "NOTIFICATION");
-		map.put("noticeList", notification.getNoticeList());
-		map.put("errorList", notification.getErrorList());
-		map.put("fieldErrorList", notification.getFieldErrorList());
-		return map;
 	}
 
 }
