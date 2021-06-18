@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.google.common.io.Files;
@@ -44,6 +46,16 @@ public class Utility extends orion.core.Utility {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
+	}
+
+	public static List<Map> listify(Enum[] inputList) {
+		List<Map> outputList = new ArrayList<>();
+
+		for (Enum element : inputList) {
+			outputList.add(Utility.makeMap("value", element, "text", element.name().replace("_", " ")));
+		}
+
+		return outputList;
 	}
 
 }

@@ -68,6 +68,7 @@ public class PersistenceModule extends AbstractModule {
 	public static final Map<Class, Class> classTypeMapping = new HashMap<>() {
 		{
 			put(java.sql.Timestamp.class, java.time.LocalDateTime.class);
+			put(java.sql.Date.class, java.time.LocalDate.class);
 		}
 	};
 }
