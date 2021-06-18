@@ -137,24 +137,22 @@ public class BaseController {
 		if (array.length % 2 != 0) {
 			throw new RuntimeException("Validation array length should be even");
 		}
+		RequiredField[] fieldArray = new RequiredField[array.length / 2];
 		for (int i = 0; i < array.length; i = i + 2) {
-			if (!validateRequired(new RequiredField((String) array[i], array[i + 1]))) {
-				return false;
-			}
+			fieldArray[i / 2] = new RequiredField((String) array[i], array[i + 1]);
 		}
-		return true;
+		return validateRequired(fieldArray);
 	}
 
 	protected boolean validateRequiredString(Object... array) {
 		if (array.length % 2 != 0) {
 			throw new RuntimeException("Validation array length should be even");
 		}
+		RequiredStringField[] fieldArray = new RequiredStringField[array.length / 2];
 		for (int i = 0; i < array.length; i = i + 2) {
-			if (!validateRequiredString(new RequiredStringField((String) array[i], array[i + 1]))) {
-				return false;
-			}
+			fieldArray[i / 2] = new RequiredStringField((String) array[i], array[i + 1]);
 		}
-		return true;
+		return validateRequiredString(fieldArray);
 	}
 
 	public Notification getNotification() {
