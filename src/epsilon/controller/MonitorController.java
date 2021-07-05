@@ -20,8 +20,8 @@ public class MonitorController extends BaseController {
 
 	@Path(value = "/system/monitor/ping", allow = {}, deny = {})
 	public View ping() {
-		List<Template> tenantList = templateService.list();
-		if (!tenantList.isEmpty()) {
+		List<Template> templateList = templateService.list();
+		if (!templateList.isEmpty()) {
 			return new View(Type.TEXT_PLAIN, "OK");
 		}
 		return new View(Type.TEXT_PLAIN, "Error");
