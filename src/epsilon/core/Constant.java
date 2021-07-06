@@ -7,7 +7,6 @@ import java.util.Properties;
 public class Constant extends orion.core.Constant {
 
 	public static final File assetPath;
-	public static final File assetFilePath;
 
 	public static final Properties propertyRepository;
 
@@ -33,9 +32,8 @@ public class Constant extends orion.core.Constant {
 		propertyRepository = properties;
 
 		assetPath = file;
-		assetFilePath = new File(assetPath, "file");
-		assetFilePath.mkdirs();
 
+		new File(assetPath, "file").mkdirs();
 		new File(assetPath, "small").mkdirs();
 		new File(assetPath, "medium").mkdirs();
 		new File(assetPath, "large").mkdirs();

@@ -19,9 +19,6 @@ public class AssetUtility {
 	public static File identifyBinaryLinux = new File("/usr/bin/identify");
 	public static File identifyBinaryWindows = new File("c:\\system\\application\\imagemagick\\identify.exe");
 
-	public static File compositeBinaryLinux = new File("/usr/bin/composite");
-	public static File compositeBinaryWindows = new File("c:\\system\\application\\imagemagick\\composite.exe");
-
 	private static Integer zero = new Integer(0);
 
 	public static String encodeAssetName(String text) {
@@ -67,7 +64,7 @@ public class AssetUtility {
 		if (convertBinary.exists()) {
 			if (source != null && source.isFile()) {
 				String fileName = source.getName().toLowerCase();
-				if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png")) {
+				if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png") || fileName.endsWith(".gif") || fileName.endsWith(".bmp")) {
 					if (overwrite || !destination.isFile()) {
 						List<String> logList = new ArrayList<>();
 
@@ -133,7 +130,7 @@ public class AssetUtility {
 		File identifyBinary = File.separatorChar == '/' ? identifyBinaryLinux : identifyBinaryWindows;
 		if (identifyBinary.exists() && source != null && source.isFile()) {
 			String fileName = source.getName().toLowerCase();
-			if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png")) {
+			if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png") || fileName.endsWith(".gif") || fileName.endsWith(".bmp")) {
 				List<String> logList = new ArrayList<>();
 
 				Executable executable = new Executable( //
@@ -167,7 +164,7 @@ public class AssetUtility {
 		File identifyBinary = File.separatorChar == '/' ? identifyBinaryLinux : identifyBinaryWindows;
 		if (identifyBinary.exists() && source != null && source.isFile()) {
 			String fileName = source.getName().toLowerCase();
-			if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png")) {
+			if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png") || fileName.endsWith(".gif") || fileName.endsWith(".bmp")) {
 				List<String> logList = new ArrayList<>();
 
 				Executable executable = new Executable( //
