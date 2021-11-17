@@ -45,7 +45,7 @@ public class PersistenceModule extends AbstractModule {
 				if (poolSize != null) {
 					mainDataSource.setMaximumPoolSize(Integer.parseInt(poolSize));
 				} else {
-					mainDataSource.setMaximumPoolSize(10);
+					mainDataSource.setMaximumPoolSize(5);
 				}
 
 				Core.setPropertyRepository(propertyRepository);
@@ -68,6 +68,7 @@ public class PersistenceModule extends AbstractModule {
 	public static final Map<Class, Class> classTypeMapping = new HashMap<>() {
 		{
 			put(java.sql.Timestamp.class, java.time.LocalDateTime.class);
+			put(java.sql.Time.class, java.time.LocalTime.class);
 			put(java.sql.Date.class, java.time.LocalDate.class);
 		}
 	};

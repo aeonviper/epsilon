@@ -39,12 +39,12 @@ public class BaseService extends GenericService {
 
 	@Transactional
 	public Long sequence(String name) {
-		return select(Long.class, "select next value for " + name + "");
+		return selectFind(Long.class, "select next value for " + name + "");
 	}
 
 	@Transactional
 	public Long id() {
-		return select(Long.class, "select last_insert_id()");
+		return selectFind(Long.class, "select last_insert_id()");
 	}
 
 	public static void toDecorate(BaseModel entity) {
