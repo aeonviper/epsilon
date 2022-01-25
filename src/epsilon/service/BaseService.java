@@ -51,8 +51,8 @@ public class BaseService extends GenericService {
 		if (entity == null) {
 			return;
 		}
-		if (entity.getMap() != null) {
-			entity.setMapData(Utility.gson.toJson(entity.getMap()));
+		if (entity.getStorageMap() != null) {
+			entity.setStorageMapData(Utility.gson.toJson(entity.getStorageMap()));
 		}
 	}
 
@@ -60,9 +60,9 @@ public class BaseService extends GenericService {
 		if (entity == null) {
 			return;
 		}
-		if (Utility.isNotBlank(entity.getMapData())) {
-			entity.setMap(Utility.gson.fromJson(entity.getMapData(), Utility.typeMapOfStringObject));
-			entity.setMapData(null);
+		if (Utility.isNotBlank(entity.getStorageMapData())) {
+			entity.setStorageMap(Utility.gson.fromJson(entity.getStorageMapData(), Utility.typeMapOfStringObject));
+			entity.setStorageMapData(null);
 		}
 	}
 
@@ -95,7 +95,7 @@ public class BaseService extends GenericService {
 				entity.setEditorId(null);
 				entity.setEditor(null);
 				entity.setEdited(null);
-				entity.setMapData(null);
+				entity.setStorageMapData(null);
 			}
 			return entity;
 		}

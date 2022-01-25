@@ -8,9 +8,6 @@ public class BaseModel {
 
 	protected Long id;
 
-	protected Map<String, Object> map = new HashMap<>();
-	protected String mapData;
-
 	protected LocalDateTime created;
 	protected Long creatorId;
 	protected String creator;
@@ -19,18 +16,21 @@ public class BaseModel {
 	protected Long editorId;
 	protected String editor;
 
-	protected Map<String, Object> transitMap = new HashMap<>();
+	protected Map<String, Object> storageMap = new HashMap<>();
+	protected String storageMapData;
 
-	public Object getTransit(String key) {
-		if (transitMap != null) {
-			return transitMap.get(key);
+	protected Map<String, Object> map = new HashMap<>();
+
+	public Object get(String key) {
+		if (map != null) {
+			return map.get(key);
 		}
 		return null;
 	}
 
-	public Object putTransit(String key, Object value) {
-		if (transitMap != null) {
-			return transitMap.put(key, value);
+	public Object set(String key, Object value) {
+		if (map != null) {
+			return map.put(key, value);
 		}
 		return null;
 	}
@@ -41,30 +41,6 @@ public class BaseModel {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Map<String, Object> getMap() {
-		return map;
-	}
-
-	public void setMap(Map<String, Object> map) {
-		this.map = map;
-	}
-
-	public String getMapData() {
-		return mapData;
-	}
-
-	public void setMapData(String mapData) {
-		this.mapData = mapData;
-	}
-
-	public Map<String, Object> getTransitMap() {
-		return transitMap;
-	}
-
-	public void setTransitMap(Map<String, Object> transitMap) {
-		this.transitMap = transitMap;
 	}
 
 	public LocalDateTime getCreated() {
@@ -113,6 +89,30 @@ public class BaseModel {
 
 	public void setEditor(String editor) {
 		this.editor = editor;
+	}
+
+	public Map<String, Object> getStorageMap() {
+		return storageMap;
+	}
+
+	public void setStorageMap(Map<String, Object> storageMap) {
+		this.storageMap = storageMap;
+	}
+
+	public String getStorageMapData() {
+		return storageMapData;
+	}
+
+	public void setStorageMapData(String storageMapData) {
+		this.storageMapData = storageMapData;
+	}
+
+	public Map<String, Object> getMap() {
+		return map;
+	}
+
+	public void setMap(Map<String, Object> map) {
+		this.map = map;
 	}
 
 }

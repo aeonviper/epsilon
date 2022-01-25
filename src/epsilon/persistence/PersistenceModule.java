@@ -25,7 +25,6 @@ public class PersistenceModule extends AbstractModule {
 	public PersistenceModule() {
 	}
 
-	@Override
 	protected final void configure() {
 
 		HikariDataSource mainDataSource = new HikariDataSource();
