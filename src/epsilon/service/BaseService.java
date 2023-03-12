@@ -70,7 +70,9 @@ public class BaseService extends GenericService {
 		if (list != null) {
 			for (T entry : list) {
 				for (Function function : functionArray) {
-					function.apply(entry);
+					if (function != null) {
+						function.apply(entry);
+					}
 				}
 			}
 		}
@@ -80,7 +82,9 @@ public class BaseService extends GenericService {
 	public static <T extends BaseModel> T apply(T entity, Function<T, T>... functionArray) {
 		if (entity != null) {
 			for (Function function : functionArray) {
-				function.apply(entity);
+				if (function != null) {
+					function.apply(entity);
+				}
 			}
 		}
 		return entity;
