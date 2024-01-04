@@ -39,12 +39,23 @@ public class PersistenceModule extends AbstractModule {
 				mainDataSource.setJdbcUrl(propertyRepository.getProperty("main.database.url"));
 				mainDataSource.setUsername(propertyRepository.getProperty("main.database.username"));
 				mainDataSource.setPassword(propertyRepository.getProperty("main.database.password"));
+				mainDataSource.setPoolName("MainDatabasePool");
 
 				String poolSize = propertyRepository.getProperty("main.database.pool.size");
 				if (poolSize != null) {
 					mainDataSource.setMaximumPoolSize(Integer.parseInt(poolSize));
 				} else {
 					mainDataSource.setMaximumPoolSize(5);
+				}
+
+				String leakDetectionThreshold = propertyRepository.getProperty("main.database.leak.detection.threshold");
+				if (leakDetectionThreshold != null) {
+					mainDataSource.setLeakDetectionThreshold(Long.parseLong(leakDetectionThreshold));
+				}
+
+				String connectionTimeout = propertyRepository.getProperty("main.database.connection.timeout");
+				if (connectionTimeout != null) {
+					mainDataSource.setConnectionTimeout(Long.parseLong(connectionTimeout));
 				}
 
 				Core.setPropertyRepository(propertyRepository);
