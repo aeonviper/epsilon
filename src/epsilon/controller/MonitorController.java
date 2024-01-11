@@ -41,7 +41,7 @@ public class MonitorController extends BaseController {
 				File file = null;
 				String text = "";
 				if (path != null) {
-					file = new File(path);
+					file = new File(hexToString(path));
 				} else if (drive != null) {
 					file = new File(hexToString(drive));
 				}
@@ -55,7 +55,7 @@ public class MonitorController extends BaseController {
 				}
 				File file = null;
 				if (path != null) {
-					file = new File(path);
+					file = new File(hexToString(path));
 				} else if (drive != null) {
 					file = new File(hexToString(drive));
 				}
