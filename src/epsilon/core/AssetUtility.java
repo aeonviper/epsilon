@@ -116,12 +116,14 @@ public class AssetUtility {
 	private static String[] assetLocationList = new String[] { File.separator + "file", File.separator + "small", File.separator + "medium", File.separator + "large" };
 
 	public static void deleteAsset(String fileName) {
-		File oldFile = null;
+		if (fileName != null) {
+			File oldFile = null;
 
-		for (String location : assetLocationList) {
-			oldFile = new File(Constant.assetPath + location + File.separator + fileName);
-			if (oldFile.canWrite()) {
-				oldFile.delete();
+			for (String location : assetLocationList) {
+				oldFile = new File(Constant.assetPath + location + File.separator + fileName);
+				if (oldFile.canWrite()) {
+					oldFile.delete();
+				}
 			}
 		}
 	}
